@@ -55,6 +55,8 @@ class Grid extends Component {
     }
 
     handleClick = propertyName => (event) => {
+        this.findWinner();
+
         if (this.state.flipper === false) {
             this.setState({
                 flipper: !this.state.flipper,
@@ -75,33 +77,59 @@ class Grid extends Component {
                 }
             })
         }
+    }
+
+    findWinner = () => {
+        let boxes = this.state.boxes;
+        let row = []
+
+        for (let i = 0; i < 3; i++) {
+            console.log('boxes', boxes[i]);
+            console.log('box', row);
+      
+            if (this.state[boxes[i]].X) {
+                row.push('X');
+                if (row.length === 3) {
+                     alert('YOU WHEN PLAYER ONE!!!!')
+                }
+            }
+            else if (this.state[boxes[i]].O) {
+                row.push('O');
+                if (row.length === 3) {
+                    alert('YOU WHEN PLAYER TWO!!!!')
+                }
+            }
+            
+        }
+
+        
 
     }
 
     renderSquares = (info, i) => {
-        let state = this.state[info];        
-        if(i%3 === 0 && i !== 0) {
+        let state = this.state[info];
+        if (i % 3 === 0 && i !== 0) {
             if (state.X === false && state.O === false) {
                 return (
                     < >
-                        <div  className="grid" id={info} onClick={this.handleClick(info)}> `</div>
-                        <br/>
+                        <div className="grid" id={info} onClick={this.handleClick(info)}>&ensp;</div>
+                        <br />
                     </>
                 )
             }
             else if (state.X === true) {
                 return (
                     < >
-                        <div className="grid" key={i} id={info}><span>X</span></div>
-                        <br/>
+                        <div className="grid" key={i} id={info}>X</div>
+                        <br />
                     </>
                 )
             }
             else if (state.O === true) {
                 return (
                     < >
-                        <div className="grid" key={i} id={info}><span>O</span></div>
-                        <br/>
+                        <div className="grid" key={i} id={info}>O</div>
+                        <br />
                     </>
                 )
             }
@@ -109,17 +137,17 @@ class Grid extends Component {
         else {
             if (state.X === false && state.O === false) {
                 return (
-                    <div className="grid" key={i} id={info} onClick={this.handleClick(info)}> `</div>
+                    <div className="grid" key={i} id={info} onClick={this.handleClick(info)}>&ensp;</div>
                 )
             }
             else if (state.X === true) {
                 return (
-                    <div className="grid" key={i} id={info}><span>X</span></div>
+                    <div className="grid" key={i} id={info}>X</div>
                 )
             }
             else if (state.O === true) {
                 return (
-                    <div className="grid" key={i} id={info}><span>O</span></div>
+                    <div className="grid" key={i} id={info}>O</div>
                 )
             }
         }
@@ -131,11 +159,10 @@ class Grid extends Component {
                 {/* {JSON.stringify(this.state)} */}
                 <br />
                 {this.state.boxes.map((info, i) => (
-                    this.renderSquares(info, i+1)
+                    this.renderSquares(info, i + 1)
                 ))}
             </div>
         )
-
     }
 
 
@@ -143,7 +170,7 @@ class Grid extends Component {
 
         return (
             <div>
-                {this.state.flipper ? <h2>Player Two's Turn</h2> : <h2>Player One's Turn</h2> }
+                {this.state.flipper ? <h2>Player Two's Turn</h2> : <h2>Player One's Turn</h2>}
                 <div>
                     {this.renderXO()}
                 </div>
