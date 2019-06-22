@@ -8,39 +8,39 @@
 }
 
 #topLeft {
-    border-bottom: 1px solid black;
-    border-right: 1px solid black;
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
 }
 
 #topCenter {
-    border-bottom: 1px solid black;
-    border-right: 1px solid black;
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
 }
 
 #topRight {
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid black;
 }
 
 #middleLeft {
-    border-bottom: 1px solid black;
-    border-right: 1px solid black;
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
 }
 
 #middleCenter {
-    border-bottom: 1px solid black;
-    border-right: 1px solid black;
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
 }
 
 #middleRight {
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid black;
 }
 
 #bottomLeft {
-    border-right: 1px solid black;
+    border-right: 2px solid black;
 }
 
 #bottomCenter {
-    border-right: 1px solid black;
+    border-right: 2px solid black;
 }
 
 #bottomRight {

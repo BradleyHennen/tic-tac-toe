@@ -55,7 +55,6 @@ class Grid extends Component {
     }
 
     handleClick = propertyName => (event) => {
-        this.findWinner();
 
         if (this.state.flipper === false) {
             this.setState({
@@ -77,36 +76,55 @@ class Grid extends Component {
                 }
             })
         }
+        this.findWinner();
     }
 
     findWinner = () => {
         let boxes = this.state.boxes;
-        let row = []
-
-        for (let i = 0; i < 3; i++) {
-            console.log('boxes', boxes[i]);
-            console.log('box', row);
-      
-            if (this.state[boxes[i]].X) {
-                row.push('X');
-                if (row.length === 3) {
-                     alert('YOU WHEN PLAYER ONE!!!!')
-                }
-            }
-            else if (this.state[boxes[i]].O) {
-                row.push('O');
-                if (row.length === 3) {
-                    alert('YOU WHEN PLAYER TWO!!!!')
-                }
-            }
-            
-        }
+        let winnerIndex = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 4, 8], [2, 4, 6], [0, 3, 6], [1, 4, 7], [2, 5, 8]];
+        let winnerArr = [];
 
         
+        for (let j = 0; j < winnerIndex.length; j++) {
+            
+            for (let i = 0; i < winnerIndex[j].length; i++) {
+                if (this.state[boxes[winnerIndex[j][i]]].X) {
+                  
+                    winnerArr.push('X');
+                    if (winnerArr.length === 3) {
+                        console.log('XXX', winnerArr);
+                        return alert('YOU WHEN PLAYER ONE!!!!');
+                    }
+                }
+                else {
+                    winnerArr = [];
+                }
+            }
+            winnerArr = [];
+
+            for (let i = 0; i < winnerIndex[j].length; i++) {
+                if (this.state[boxes[winnerIndex[j][i]]].O) {
+
+                    winnerArr.push('O');
+                    if (winnerArr.length === 3) {
+                        console.log('OOO', winnerArr);
+                        return alert('YOU WHEN PLAYER TWO!!!!');
+                    }
+                }
+                else {
+                    winnerArr = [];
+                }
+
+            }
+            winnerArr = [];
+
+        }
+
 
     }
 
     renderSquares = (info, i) => {
+
         let state = this.state[info];
         if (i % 3 === 0 && i !== 0) {
             if (state.X === false && state.O === false) {
@@ -157,6 +175,8 @@ class Grid extends Component {
         return (
             <div >
                 {/* {JSON.stringify(this.state)} */}
+        {this.findWinner()}
+
                 <br />
                 {this.state.boxes.map((info, i) => (
                     this.renderSquares(info, i + 1)
