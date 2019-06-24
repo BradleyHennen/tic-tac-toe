@@ -4,7 +4,7 @@ import './Grid.css';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
-const MySwal = withReactContent(Swal)
+const MySwal = withReactContent(Swal);
 
 
 class Grid extends Component {
@@ -128,7 +128,7 @@ class Grid extends Component {
 
         for (let x = 0; x < boxes.length; x++) {
             console.log('boxes', boxes[x]);
-            
+
             console.log('this.state[boxes]', this.state[boxes[x]]);
             let check = this.state[boxes[x]];
             if (check.X === true || check.O === true) {
@@ -136,7 +136,7 @@ class Grid extends Component {
             }
             else {
                 winnerArr = [];
-                return 
+                return
             }
         }
         if (winnerArr.length === 9) {
@@ -156,43 +156,49 @@ class Grid extends Component {
         if (i % 3 === 0 && i !== 0) {
             if (state.X === false && state.O === false) {
                 return (
-                    < >
+                    <span>
                         <div className="grid" id={info} onClick={this.handleClick(info)}>&ensp;</div>
                         <br />
-                    </>
+                    </span>
                 )
             }
             else if (state.X === true) {
                 return (
-                    < >
-                        <div className="grid" key={i} id={info}>X</div>
+                    <span>
+                        <div className="grid" id={info}>X</div>
                         <br />
-                    </>
+                    </span>
                 )
             }
             else if (state.O === true) {
                 return (
-                    < >
-                        <div className="grid" key={i} id={info}>O</div>
+                    <span>
+                        <div className="grid" id={info}>O</div>
                         <br />
-                    </>
+                    </span>
                 )
             }
         }
         else {
             if (state.X === false && state.O === false) {
                 return (
-                    <div className="grid" key={i} id={info} onClick={this.handleClick(info)}>&ensp;</div>
+                    <span>
+                        <div className="grid" id={info} onClick={this.handleClick(info)}>&ensp;</div>
+                    </span>
                 )
             }
             else if (state.X === true) {
                 return (
-                    <div className="grid" key={i} id={info}>X</div>
+                    <span>
+                        <div className="grid" id={info}>X</div>
+                    </span>
                 )
             }
             else if (state.O === true) {
                 return (
-                    <div className="grid" key={i} id={info}>O</div>
+                    <span>
+                        <div className="grid" id={info}>O</div>
+                    </span>
                 )
             }
         }
@@ -203,9 +209,10 @@ class Grid extends Component {
             this.findWinner();
             return (
                 <div >
-                    <br />
                     {this.state.boxes.map((info, i) => (
-                        this.renderSquares(info, i + 1)
+                        <span key={i}>
+                            {this.renderSquares(info, i + 1)}
+                        </span>
                     ))}
                 </div>
             )
@@ -252,9 +259,10 @@ class Grid extends Component {
             })
             return (
                 <div >
-                    <br />
                     {this.state.boxes.map((info, i) => (
-                        this.renderSquares(info, i + 1)
+                        <span key={i}>
+                            {this.renderSquares(info, i + 1)}
+                        </span>
                     ))}
                 </div>
             )
@@ -266,14 +274,10 @@ class Grid extends Component {
         return (
             <div>
                 {this.state.flipper ? <h2>Player Two's Turn</h2> : <h2>Player One's Turn</h2>}
-                <div>
-                    {this.renderXO()}
-                </div>
+                {this.renderXO()}
             </div>
         );
     }
 }
-
-
 
 export default Grid;
