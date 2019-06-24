@@ -129,11 +129,11 @@ class Grid extends Component {
         }
 
         for (let x = 0; x < boxes.length; x++) {
-                console.log('this.state[boxes]', this.state[boxes[x]]);
-                let check = this.state[boxes[x]];
-                if(check.X === true || check.O === true) {
-                    winnerArr.push('check');
-                }
+            console.log('this.state[boxes]', this.state[boxes[x]]);
+            let check = this.state[boxes[x]];
+            if (check.X === true || check.O === true) {
+                winnerArr.push('check');
+            }
         }
         if (winnerArr.length === 9) {
             (MySwal.fire({
