@@ -7,8 +7,6 @@ import withReactContent from 'sweetalert2-react-content'
 const MySwal = withReactContent(Swal)
 
 
-
-
 class Grid extends Component {
 
     state = {
@@ -134,6 +132,9 @@ class Grid extends Component {
             if (check.X === true || check.O === true) {
                 winnerArr.push('check');
             }
+            else {
+                winnerArr = [];
+            }
         }
         if (winnerArr.length === 9) {
             (MySwal.fire({
@@ -161,7 +162,7 @@ class Grid extends Component {
             else if (state.X === true) {
                 return (
                     < >
-                        <div className="grid" key={i} id={info}>X</div>
+                        <div className="grid" key={i} id={info}><h6>X</h6></div>
                         <br />
                     </>
                 )
@@ -169,7 +170,7 @@ class Grid extends Component {
             else if (state.O === true) {
                 return (
                     < >
-                        <div className="grid" key={i} id={info}>O</div>
+                        <div className="grid" key={i} id={info}><h6>O</h6></div>
                         <br />
                     </>
                 )
@@ -183,12 +184,12 @@ class Grid extends Component {
             }
             else if (state.X === true) {
                 return (
-                    <div className="grid" key={i} id={info}>X</div>
+                    <div className="grid" key={i} id={info}><h6>X</h6></div>
                 )
             }
             else if (state.O === true) {
                 return (
-                    <div className="grid" key={i} id={info}>O</div>
+                    <div className="grid" key={i} id={info}><h6>O</h6></div>
                 )
             }
         }
