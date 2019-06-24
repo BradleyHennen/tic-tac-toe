@@ -7,6 +7,10 @@
     font-size: 80px;
 }
 
+p {
+    font-size: 20px;
+}
+
 #topLeft {
     border-bottom: 2px solid black;
     border-right: 2px solid black;
