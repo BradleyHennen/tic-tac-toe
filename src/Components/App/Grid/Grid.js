@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
-import './Grid.css'
+import './Grid.css';
+
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
+const MySwal = withReactContent(Swal)
+
+
+
 
 class Grid extends Component {
 
@@ -8,54 +15,44 @@ class Grid extends Component {
         flipper: false,
         boxes: ['topLeft', 'topCenter', 'topRight', 'middleLeft', 'middleCenter', 'middleRight', 'bottomLeft', 'bottomCenter', 'bottomRight'],
         topLeft: {
-            position: 1,
             X: false,
             O: false,
         },
         topCenter: {
-            position: 2,
             X: false,
             O: false,
         },
         topRight: {
-            position: 3,
             X: false,
             O: false,
         },
         middleLeft: {
-            position: 4,
             X: false,
             O: false,
         },
         middleCenter: {
-            position: 5,
             X: false,
             O: false,
         },
         middleRight: {
-            position: 6,
             X: false,
             O: false,
         },
         bottomLeft: {
-            position: 7,
             X: false,
             O: false,
         },
         bottomCenter: {
-            position: 8,
             X: false,
             O: false,
         },
         bottomRight: {
-            position: 9,
             X: false,
             O: false,
         },
     }
 
     handleClick = propertyName => (event) => {
-
         if (this.state.flipper === false) {
             this.setState({
                 flipper: !this.state.flipper,
@@ -76,7 +73,6 @@ class Grid extends Component {
                 }
             })
         }
-        this.findWinner();
     }
 
     findWinner = () => {
@@ -84,16 +80,23 @@ class Grid extends Component {
         let winnerIndex = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 4, 8], [2, 4, 6], [0, 3, 6], [1, 4, 7], [2, 5, 8]];
         let winnerArr = [];
 
-        
+
         for (let j = 0; j < winnerIndex.length; j++) {
-            
+
             for (let i = 0; i < winnerIndex[j].length; i++) {
                 if (this.state[boxes[winnerIndex[j][i]]].X) {
-                  
+
                     winnerArr.push('X');
                     if (winnerArr.length === 3) {
-                        console.log('XXX', winnerArr);
-                        return alert('YOU WHEN PLAYER ONE!!!!');
+                        (MySwal.fire({
+                            onOpen: () => {
+                                MySwal.clickConfirm()
+                            }
+                        }).then(() => {
+                            return MySwal.fire(<p>You Win Player One!!</p>)
+                        }));
+                        this.renderXO(true);
+
                     }
                 }
                 else {
@@ -107,8 +110,14 @@ class Grid extends Component {
 
                     winnerArr.push('O');
                     if (winnerArr.length === 3) {
-                        console.log('OOO', winnerArr);
-                        return alert('YOU WHEN PLAYER TWO!!!!');
+                        (MySwal.fire({
+                            onOpen: () => {
+                                MySwal.clickConfirm()
+                            }
+                        }).then(() => {
+                            return MySwal.fire(<p>You Win Player Two!!</p>)
+                        }));
+                        this.renderXO(true);
                     }
                 }
                 else {
@@ -117,14 +126,28 @@ class Grid extends Component {
 
             }
             winnerArr = [];
-
         }
 
-
+        for (let x = 0; x < boxes.length; x++) {
+                console.log('this.state[boxes]', this.state[boxes[x]]);
+                let check = this.state[boxes[x]];
+                if(check.X === true || check.O === true) {
+                    winnerArr.push('check');
+                }
+        }
+        if (winnerArr.length === 9) {
+            (MySwal.fire({
+                onOpen: () => {
+                    MySwal.clickConfirm()
+                }
+            }).then(() => {
+                return MySwal.fire(<p>Cats Game!!</p>)
+            }));
+            this.renderXO(true);
+        }
     }
 
     renderSquares = (info, i) => {
-
         let state = this.state[info];
         if (i % 3 === 0 && i !== 0) {
             if (state.X === false && state.O === false) {
@@ -171,23 +194,80 @@ class Grid extends Component {
         }
     }
 
-    renderXO = () => {
-        return (
-            <div >
-                {/* {JSON.stringify(this.state)} */}
-        {this.findWinner()}
-
-                <br />
-                {this.state.boxes.map((info, i) => (
-                    this.renderSquares(info, i + 1)
-                ))}
-            </div>
-        )
+    renderXO = (winner = false) => {
+        if (winner === false) {
+            this.findWinner()
+            return (
+                <div >
+                    <br />
+                    {this.state.boxes.map((info, i) => (
+                        this.renderSquares(info, i + 1)
+                    ))}
+                </div>
+            )
+        } else if (winner === true) {
+            this.setState({
+                flipper: false,
+                boxes: ['topLeft', 'topCenter', 'topRight', 'middleLeft', 'middleCenter', 'middleRight', 'bottomLeft', 'bottomCenter', 'bottomRight'],
+                topLeft: {
+                    position: 1,
+                    X: false,
+                    O: false,
+                },
+                topCenter: {
+                    position: 2,
+                    X: false,
+                    O: false,
+                },
+                topRight: {
+                    position: 3,
+                    X: false,
+                    O: false,
+                },
+                middleLeft: {
+                    position: 4,
+                    X: false,
+                    O: false,
+                },
+                middleCenter: {
+                    position: 5,
+                    X: false,
+                    O: false,
+                },
+                middleRight: {
+                    position: 6,
+                    X: false,
+                    O: false,
+                },
+                bottomLeft: {
+                    position: 7,
+                    X: false,
+                    O: false,
+                },
+                bottomCenter: {
+                    position: 8,
+                    X: false,
+                    O: false,
+                },
+                bottomRight: {
+                    position: 9,
+                    X: false,
+                    O: false,
+                },
+            })
+            return (
+                <div >
+                    <br />
+                    {this.state.boxes.map((info, i) => (
+                        this.renderSquares(info, i + 1)
+                    ))}
+                </div>
+            )
+        }
     }
 
 
     render() {
-
         return (
             <div>
                 {this.state.flipper ? <h2>Player Two's Turn</h2> : <h2>Player One's Turn</h2>}
