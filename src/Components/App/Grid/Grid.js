@@ -162,7 +162,7 @@ class Grid extends Component {
             else if (state.X === true) {
                 return (
                     < >
-                        <div className="grid" key={i} id={info}><h6>X</h6></div>
+                        <div className="grid" key={i} id={info}>X</div>
                         <br />
                     </>
                 )
@@ -170,7 +170,7 @@ class Grid extends Component {
             else if (state.O === true) {
                 return (
                     < >
-                        <div className="grid" key={i} id={info}><h6>O</h6></div>
+                        <div className="grid" key={i} id={info}>O</div>
                         <br />
                     </>
                 )
@@ -184,12 +184,12 @@ class Grid extends Component {
             }
             else if (state.X === true) {
                 return (
-                    <div className="grid" key={i} id={info}><h6>X</h6></div>
+                    <div className="grid" key={i} id={info}>X</div>
                 )
             }
             else if (state.O === true) {
                 return (
-                    <div className="grid" key={i} id={info}><h6>O</h6></div>
+                    <div className="grid" key={i} id={info}>O</div>
                 )
             }
         }
