@@ -77,6 +77,7 @@ class Grid extends Component {
         let boxes = this.state.boxes;
         let winnerIndex = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
         let winnerArr = [];
+        let check = true;
 
 
         for (let j = 0; j < winnerIndex.length; j++) {
@@ -94,6 +95,7 @@ class Grid extends Component {
                             return MySwal.fire(<p>You Win Player One!!</p>)
                         }));
                         this.renderXO(true);
+                        check = false;
                     }
                 }
                 else {
@@ -115,6 +117,7 @@ class Grid extends Component {
                             return MySwal.fire(<p>You Win Player Two!!</p>)
                         }));
                         this.renderXO(true);
+                        check = false;
                     }
                 }
                 else {
@@ -126,28 +129,30 @@ class Grid extends Component {
 
         winnerArr = [];
 
-        for (let x = 0; x < boxes.length; x++) {
-            console.log('boxes', boxes[x]);
+        if (check) {
+            for (let x = 0; x < boxes.length; x++) {
+                console.log('boxes', boxes[x]);
 
-            console.log('this.state[boxes]', this.state[boxes[x]]);
-            let check = this.state[boxes[x]];
-            if (check.X === true || check.O === true) {
-                winnerArr.push('check');
-            }
-            else {
-                winnerArr = [];
-                return
-            }
-        }
-        if (winnerArr.length === 9) {
-            (MySwal.fire({
-                onOpen: () => {
-                    MySwal.clickConfirm()
+                console.log('this.state[boxes]', this.state[boxes[x]]);
+                let check = this.state[boxes[x]];
+                if (check.X === true || check.O === true) {
+                    winnerArr.push('check');
                 }
-            }).then(() => {
-                return MySwal.fire(<p>Cats Game!!</p>)
-            }));
-            this.renderXO(true);
+                else {
+                    winnerArr = [];
+                    return
+                }
+            }
+            if (winnerArr.length === 9) {
+                (MySwal.fire({
+                    onOpen: () => {
+                        MySwal.clickConfirm()
+                    }
+                }).then(() => {
+                    return MySwal.fire(<p>Cats Game!!</p>)
+                }));
+                this.renderXO(true);
+            }
         }
     }
 
